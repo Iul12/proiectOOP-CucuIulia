@@ -286,7 +286,7 @@ public:
 
             window.clear();
             board->draw(window);
-            for (Piece* piece : pieces) {
+            for (Piece* const piece : pieces) {
                 piece->draw(window);
             }
             window.display();
