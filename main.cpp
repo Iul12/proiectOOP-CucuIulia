@@ -261,14 +261,29 @@ public:
     Game(const Game &other) {
         board = new Board(*other.board);
         pieces.clear();
-        for (Piece *piece: other.pieces) {
+        for (const Piece *piece: other.pieces) {
             pieces.push_back(new Piece(*piece));
         }
     }
 
+    Game& operator=(const Game& other) {
+        if (this != &other) {
+            delete board;
+            for (const Piece* piece : pieces) {
+                delete piece;
+            }
+            board = new Board(*other.board);
+            pieces.clear();
+            for (const Piece* piece : other.pieces) {
+                pieces.push_back(new Piece(*piece));
+            }
+        }
+        return *this;
+    }
+
     ~Game() {
         delete board;
-        for (Piece *piece: pieces) {
+        for (const Piece *piece: pieces) {
             delete piece;
         }
         std::cout<<"Chess ended!";
@@ -286,7 +301,7 @@ public:
 
             window.clear();
             board->draw(window);
-            for (Piece* const piece : pieces) {
+            for (Piece* piece : pieces) {
                 piece->draw(window);
             }
             window.display();
@@ -296,7 +311,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Game& game) {
         os << "Chess Game Information" << std::endl;
         os << *game.board;
-        for (Piece* piece : game.pieces) {
+        for (const Piece* piece : game.pieces) {
             os << *piece;
         }
         return os;
