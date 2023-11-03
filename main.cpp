@@ -204,7 +204,7 @@ public:
 };
 */
 
-class Game_Chess {
+class Game {
 private:
     sf::RenderWindow window;
     Board *board;
@@ -253,12 +253,12 @@ public:
 
 
     }
-    Game_Chess() : window(sf::VideoMode(596, 596), "Chess Game") {
+    Game() : window(sf::VideoMode(596, 596), "Chess Game") {
         board = new Board(600);
         Textures::loadAllTextures();
         addPiecesToVector();
     }
-    Game_Chess(const Game_Chess &other) {
+    Game(const Game &other) {
         board = new Board(*other.board);
         pieces.clear();
         for (Piece *piece: other.pieces) {
@@ -266,7 +266,7 @@ public:
         }
     }
 
-    ~Game_Chess() {
+    ~Game() {
         delete board;
         for (Piece *piece: pieces) {
             delete piece;
@@ -293,7 +293,7 @@ public:
         }
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Game_Chess& game) {
+    friend std::ostream& operator<<(std::ostream& os, const Game& game) {
         os << "Chess Game Information" << std::endl;
         os << *game.board;
         for (Piece* piece : game.pieces) {
@@ -304,9 +304,9 @@ public:
 };
 
 int main() {
-    Game_Chess game;
+    Game game;
     game.run();
     std::cout << game;
     std::cout << Textures{};
-    ///    return 0;
+    return 0;
 }
