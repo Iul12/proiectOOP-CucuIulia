@@ -1,6 +1,7 @@
-#include "Game.h"
-#include "Exceptions.h"
 #include <iostream>
+#include "headers/Game.h"
+#include "headers/Exceptions.h"
+
 
 int main() {
     try {
